@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.8)
 project(otus_final_work CXX)
 
 include(FetchContent)
+
 FetchContent_Declare(
     googletest 
     GIT_REPOSITORY git@github.com:google/googletest.git
@@ -18,54 +19,78 @@ FetchContent_Declare(
     )
 FetchContent_MakeAvailable(fmt)
 
+FetchContent_Declare(
+    cli11_proj
+    GIT_REPOSITORY https://github.com/CLIUtils/CLI11.git
+    GIT_TAG v2.3.2
+    )
+FetchContent_MakeAvailable(cli11_proj)
+
+FetchContent_Declare(
+    indicators
+    GIT_REPOSITORY git@github.com:p-ranav/indicators.git
+    # GIT_TAG main
+    )
+FetchContent_MakeAvailable(indicators)
+
 file(GLOB proj_sources src/*.cpp)
 file(GLOB test_sources test/*.cpp)
 
 add_executable(
-    main 
+    dac 
     ${proj_sources}
     )
 
 add_executable(
-    main_test 
+    dac_test 
     ${test_sources}
     )
 
 target_include_directories(
-    main_test 
+    dac_test 
     PRIVATE 
     "${CMAKE_CURRENT_SOURCE_DIR}/src"
     )
 
 target_link_libraries(
-    main_test 
+    dac_test 
     GTest::gtest_main
     )
 
 target_link_libraries(
-    main 
+    dac 
     fmt::fmt
     )
 
-set_target_properties(main PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED ON)
-set_target_properties(main_test PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED ON)
+target_link_libraries(
+    dac
+    CLI11::CLI11
+    )  
+    
+target_link_libraries(
+    dac
+    indicators::indicators
+    )     
+
+set_target_properties(dac PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED ON)
+set_target_properties(dac_test PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED ON)
 
 if (MSVC)
     target_compile_options(
-        main PRIVATE 
+        dac PRIVATE 
         /W4
     )
     target_compile_options(
-        main_test PRIVATE 
+        dac_test PRIVATE 
         /W4
     )
 else ()
     target_compile_options(
-        main PRIVATE 
+        dac PRIVATE 
         -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion
     )
     target_compile_options(
-        main_test PRIVATE 
+        dac_test PRIVATE 
         -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion
     )
 endif ()
