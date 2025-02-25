@@ -29,68 +29,83 @@ FetchContent_MakeAvailable(cli11_proj)
 FetchContent_Declare(
     indicators
     GIT_REPOSITORY git@github.com:p-ranav/indicators.git
-    # GIT_TAG main
+    GIT_TAG v2.3
     )
 FetchContent_MakeAvailable(indicators)
+
+FetchContent_Declare(
+    cpr GIT_REPOSITORY https://github.com/libcpr/cpr.git
+    GIT_TAG dd967cb48ea6bcbad9f1da5ada0db8ac0d532c06
+    )
+FetchContent_MakeAvailable(cpr)
 
 file(GLOB proj_sources src/*.cpp)
 file(GLOB test_sources test/*.cpp)
 
 add_executable(
-    dac 
+    duc 
     ${proj_sources}
     )
 
 add_executable(
-    dac_test 
+    duc_test 
     ${test_sources}
     )
 
 target_include_directories(
-    dac_test 
-    PRIVATE 
+    duc_test
+    PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/src"
     )
 
 target_link_libraries(
-    dac_test 
+    duc_test 
     GTest::gtest_main
     )
 
 target_link_libraries(
-    dac 
+    duc 
     fmt::fmt
+    CLI11::CLI11
+    indicators::indicators
+    cpr::cpr
     )
 
-target_link_libraries(
-    dac
-    CLI11::CLI11
-    )  
+# target_link_libraries(
+#     duc
+#     CLI11::CLI11
+#     )  
     
-target_link_libraries(
-    dac
-    indicators::indicators
-    )     
+# target_link_libraries(
+#     duc
+#     indicators::indicators
+#     )
+    
+# target_link_libraries(
+#     duc
+#     PRIVATE
+#     cpr::cpr
+#     )    
 
-set_target_properties(dac PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED ON)
-set_target_properties(dac_test PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED ON)
+set_target_properties(duc PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED ON)
+set_target_properties(duc_test PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED ON)
 
 if (MSVC)
     target_compile_options(
-        dac PRIVATE 
+        duc PRIVATE 
         /W4
     )
     target_compile_options(
-        dac_test PRIVATE 
+        duc_test PRIVATE 
         /W4
     )
 else ()
     target_compile_options(
-        dac PRIVATE 
+        duc PRIVATE 
         -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion
     )
     target_compile_options(
-        dac_test PRIVATE 
+        duc_test PRIVATE 
         -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion
     )
 endif ()
