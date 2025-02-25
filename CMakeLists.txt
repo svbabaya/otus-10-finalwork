@@ -26,19 +26,6 @@ FetchContent_Declare(
     )
 FetchContent_MakeAvailable(cli11_proj)
 
-FetchContent_Declare(
-    indicators
-    GIT_REPOSITORY git@github.com:p-ranav/indicators.git
-    GIT_TAG v2.3
-    )
-FetchContent_MakeAvailable(indicators)
-
-FetchContent_Declare(
-    cpr GIT_REPOSITORY https://github.com/libcpr/cpr.git
-    GIT_TAG dd967cb48ea6bcbad9f1da5ada0db8ac0d532c06
-    )
-FetchContent_MakeAvailable(cpr)
-
 file(GLOB proj_sources src/*.cpp)
 file(GLOB test_sources test/*.cpp)
 
@@ -67,25 +54,7 @@ target_link_libraries(
     duc 
     fmt::fmt
     CLI11::CLI11
-    indicators::indicators
-    cpr::cpr
     )
-
-# target_link_libraries(
-#     duc
-#     CLI11::CLI11
-#     )  
-    
-# target_link_libraries(
-#     duc
-#     indicators::indicators
-#     )
-    
-# target_link_libraries(
-#     duc
-#     PRIVATE
-#     cpr::cpr
-#     )    
 
 set_target_properties(duc PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED ON)
 set_target_properties(duc_test PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED ON)
