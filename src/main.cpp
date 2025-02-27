@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fmt/core.h>
 #include <fmt/color.h>
-#include <CLI/CLI.hpp>
+// #include <CLI/CLI.hpp>
 
 #include <cpprest/http_client.h>
 #include <cpprest/filestream.h>

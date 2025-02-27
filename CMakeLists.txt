@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.10)
 
 project(otus_final_work CXX)
 
@@ -19,12 +19,12 @@ FetchContent_Declare(
     )
 FetchContent_MakeAvailable(fmt)
 
-FetchContent_Declare(
-    cli11_proj
-    GIT_REPOSITORY https://github.com/CLIUtils/CLI11.git
-    GIT_TAG v2.3.2
-    )
-FetchContent_MakeAvailable(cli11_proj)
+# FetchContent_Declare(
+#     cli11_proj
+#     GIT_REPOSITORY https://github.com/CLIUtils/CLI11.git
+#     GIT_TAG v2.3.2
+#     )
+# FetchContent_MakeAvailable(cli11_proj)
 
 find_package(cpprestsdk CONFIG REQUIRED)
 
@@ -57,7 +57,7 @@ target_link_libraries(
     duc 
     PRIVATE
     fmt::fmt
-    CLI11::CLI11
+    # CLI11::CLI11
     cpprestsdk::cpprest 
     cpprestsdk::cpprestsdk_zlib_internal 
     cpprestsdk::cpprestsdk_boost_internal 
