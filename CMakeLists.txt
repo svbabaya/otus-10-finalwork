@@ -27,6 +27,9 @@ FetchContent_MakeAvailable(fmt)
 # FetchContent_MakeAvailable(cli11_proj)
 
 find_package(cpprestsdk CONFIG REQUIRED)
+find_package(httplib CONFIG REQUIRED)
+find_package(CLI11 CONFIG REQUIRED)
+
 
 file(GLOB proj_sources src/*.cpp)
 file(GLOB test_sources test/*.cpp)
@@ -57,11 +60,11 @@ target_link_libraries(
     duc 
     PRIVATE
     fmt::fmt
-    # CLI11::CLI11
+    CLI11::CLI11
     cpprestsdk::cpprest 
     cpprestsdk::cpprestsdk_zlib_internal 
-    cpprestsdk::cpprestsdk_boost_internal 
-    cpprestsdk::cpprestsdk_openssl_internal
+    cpprestsdk::cpprestsdk_brotli_internal
+    httplib::httplib
     )
 
 set_target_properties(duc PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED ON)
